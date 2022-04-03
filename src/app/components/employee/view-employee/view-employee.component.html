@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row p-4">
+        <div class="col-3">
+            Employee Tasks <span class="badge badge-secondary"> {{TaskCount}} </span>
+        </div>
+        <div class="col-7"></div>
+        <div class="col-2">
+            <select name="" id="">
+                <option value="">Hi Admin</option>
+                <option value="">Logout</option>
+            </select>
+            <img src="../../../../assets/images/user.jpg" height="30" width="30" alt="">
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-1">
+                <button class="btn" (click)="goBack()"><i class="fa fa-arrow-left"></i></button>
+            </div>
+            <div class="col-1">
+                <button class="btn " (click)="openPopup()" >Add Task</button>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-2">
+                <select name="" id=""  class="form-control" [(ngModel)]="Filterbyvalue"  (change)="Filterbyuser()">
+                    <option value="3">View All</option>
+                    <option value="2">Completed</option>
+                    <option value="1">Not completed</option>
+                </select>
+            </div>
+            <div class="col-5 ml-auto">
+                <form>
+                    <div class="form-group has-search">
+                        <!-- <span class="fa fa-search form-control-feedback"></span> -->
+                        <input type="text" class="form-control" [(ngModel)]="searchString" name="searchString"
+                            placeholder="Search...">
+                    </div>
+                </form>
+            </div>
+        </div>
+    <div class="row pt-5">
+        <div class="col-3 p-3" *ngFor="let task of TaskListFilter | employee : searchString ">
+            <div class="card" >
+                <div class="card-body">
+                    <p class="card-text">{{task.title}}</p>
+                    <h6 *ngIf="task.completed == true" class="card-subtitle mb-2 text-muted">Completed</h6>
+                    <h6  *ngIf="task.completed == false"  class="card-subtitle mb-2 text-muted">Not completed</h6>
+                </div>
+            </div>
+        </div>       
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Task</h4>
+                </div>
+                <div class="modal-body">
+                <div class="form-group">
+                    <label for="title" class="text-dark">Title:</label><br>
+                    <input type="text" name="title" [(ngModel)]="task.title" id="title" class="form-control">
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="closePopup()">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="AddTask()">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

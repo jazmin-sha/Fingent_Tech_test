@@ -1,0 +1,64 @@
+<div class="container pt-5">
+    <div class="row p-4">
+        <div class="col-3">
+            Employees <span class="badge badge-secondary">{{pageSize}}</span>
+        </div>
+        <div class="col-7"></div>        
+    <div class="col-2">
+        <select name="" id="">
+            <option value="">Hi Admin</option>
+            <option (click)="logout()" value="">Logout</option>
+        </select>
+        <img src="../../../../assets/images/user.jpg" height="30" width="30" alt="">
+    </div>
+    </div>
+    <div class="row" >
+        <div class="col-7"></div>
+
+        <div class="col-5 ml-auto">
+            <form>
+                <div class="form-group has-search">
+                    <!-- <span class="fa fa-search form-control-feedback"></span> -->
+                    <input type="text" class="form-control" [(ngModel)]="searchString" name="searchString"
+                        placeholder="Search...">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of EmployeeList  | employee : searchString | 
+                 paginate : {itemsPerPage: pageSize, currentPage: page, totalItems: count};">
+                    <td  (click)="goToTaskPage(item.id)"><h6 class="link">{{item.name}}</h6></td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.email}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-10">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [autoHide]="true" [responsive]="true"
+                        screenReaderPaginationLabel="Pagination" (pageChange)="onListDataChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            <div class="col-2">
+                <select class="form-control p-2" style="width: 60px;" (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" >{{ size }}</option>
+                </select>
+            </div>
+        </div>
+        
+    </div>
+
+
+</div>
