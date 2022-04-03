@@ -46,7 +46,6 @@ export class EmployeeListComponent implements OnInit {
     this.pageSize = event.target.value;
     this.page = 1;
     this.getAllEmployees();
-
   }
 
   goToTaskPage(id: number) {

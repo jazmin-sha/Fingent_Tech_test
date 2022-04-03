@@ -30,14 +30,19 @@ export class LoginService {
   }
 
 
+
   gettoken() {
     return !!localStorage.getItem("userDetails");
   }
 
+
   removeToken() {
     localStorage.removeItem("userDetails")
+    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['auth/login'])
   }
+
 
 
 }

@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guard/auth.guard';
 import { EmployeePipe } from './../../pipes/employee.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxPaginationModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class EmployeeModule { }

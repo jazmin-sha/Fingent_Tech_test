@@ -1,8 +1,10 @@
+import { LoginService } from './../../../services/login.service';
 import { Tasks } from './../../../class/task';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { TaskService } from './../../../services/task.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-view-employee',
@@ -17,19 +19,23 @@ export class ViewEmployeeComponent implements OnInit {
   TaskCount: any;
   searchString: string = '';
   Filterbyvalue: any;
-  task = new Tasks();
+  public addTaskForm: FormGroup = Object.create(null);
+  myJson: any;
+  displayStyle = "none";
 
   constructor(
     public route: ActivatedRoute,
     public taskService: TaskService,
-    public router: Router
+    public router: Router,
+    public loginService: LoginService
   ) {
     this.UserId = this.route.snapshot.paramMap.get('UserId')
   }
 
 
   ngOnInit(): void {
-    this.getTask()
+    this.getTask();
+    this.addForm();
   }
 
   getTask() {
@@ -51,26 +57,41 @@ export class ViewEmployeeComponent implements OnInit {
     }
   }
 
-  displayStyle = "none";
 
   openPopup() {
     this.displayStyle = "block";
   }
+
   closePopup() {
     this.displayStyle = "none";
+    this.addTaskForm.reset();
+  }
+
+
+  addForm() {
+    this.addTaskForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+    });
   }
 
   AddTask() {
-    this.task.completed = false;
-    this.taskService.AddTask(this.task, this.UserId).subscribe(data => {
-      console.log('added');
-      alert("task added.")
-      this.getTask();
-      this.closePopup();
-    })
+    this.myJson = {
+      'title': this.addTaskForm.value.title,
+      'completed': false,
+      'userId': this.UserId
+    }
+    this.TaskList.unshift(this.myJson);
+    alert("task added.");
+    this.closePopup();
   }
 
   goBack() {
     this.router.navigate(['employee/employee-list'])
   }
+
+  logout() {
+    this.loginService.removeToken()
+  }
+
 }
+
