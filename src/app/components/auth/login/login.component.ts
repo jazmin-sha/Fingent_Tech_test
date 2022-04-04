@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './../../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -30,11 +31,41 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userDetails', JSON.stringify({ userName: 'fingent', isLoggined: true }));
       this.router.navigate(['employee/employee-list'])
     } else if (this.returnData === 'Invalid UserName..!') {
-      alert('Invalid UserName')
+      Swal.fire({
+        text: 'Invalid UserName...!!',
+        timer: 1500,
+        showCancelButton: false,
+        showConfirmButton: false
+      }).then(
+        function () { },
+        function (dismiss) {
+          if (dismiss === 'timer') { }
+        }
+      );
     } else if (this.returnData === 'Invalid Password') {
-      alert('Invalid Password')
+      Swal.fire({
+        text: 'Invalid Password...!!',
+        timer: 1500,
+        showCancelButton: false,
+        showConfirmButton: false
+      }).then(
+        function () { },
+        function (dismiss) {
+          if (dismiss === 'timer') { }
+        }
+      );
     } else if (this.returnData === false) {
-      alert('Enter Mandatory Fields')
+      Swal.fire({
+        text: 'Enter Mandatory Fields...!!',
+        timer: 1500,
+        showCancelButton: false,
+        showConfirmButton: false
+      }).then(
+        function () { },
+        function (dismiss) {
+          if (dismiss === 'timer') { }
+        }
+      );
     }
 
   }

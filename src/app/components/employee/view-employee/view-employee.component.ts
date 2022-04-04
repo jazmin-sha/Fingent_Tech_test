@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { TaskService } from './../../../services/task.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-employee',
@@ -81,7 +82,18 @@ export class ViewEmployeeComponent implements OnInit {
       'userId': this.UserId
     }
     this.TaskList.unshift(this.myJson);
-    alert("task added.");
+    Swal.fire({
+      text: 'New Task Added Successfully',
+      timer: 1500,
+      showCancelButton: false,
+      showConfirmButton: false
+    }).then(
+      function () { },
+      function (dismiss) {
+        if (dismiss === 'timer') {
+        }
+      }
+    );
     this.closePopup();
   }
 
